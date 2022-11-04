@@ -5,10 +5,10 @@
 (define articolo ;val restituito : stringa
   (lambda (s) ; controllo l'ultima lettera del soggetto e oggetto e aggiungo gli articoli di conseguenza
     (cond
-      [(string=? (substring s (- (string-length s) 1)) "a") (string-append "la " s) ] ;fem sing
-      [(string=? (substring s (- (string-length s) 1)) "e") (string-append "le " s) ] ;fem plu
-      [(string=? (substring s (- (string-length s) 1)) "i") (string-append "i " s) ]  ;masch plu
-      [(string=? (substring s (- (string-length s) 1)) "o") (string-append "il " s) ] ;masch sing
+      [(string=? (substring s (- (string-length s) 1)) "a") (string-append "la " s) ] ;fem singolare
+      [(string=? (substring s (- (string-length s) 1)) "e") (string-append "le " s) ] ;fem plurale
+      [(string=? (substring s (- (string-length s) 1)) "i") (string-append "i " s) ]  ;masch plurale
+      [(string=? (substring s (- (string-length s) 1)) "o") (string-append "il " s) ] ;masch singolare
     )
   )
 )
