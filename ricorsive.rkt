@@ -2,6 +2,8 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname ricorsive) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;Complemento a 1 mediante RICORSIONE
+;di una sequenza in ingresso creo il suo equivalente
+;mediante il complemento a 1 ovvero invertendo gli 0 con gli 1
 
 (define bitComplement
   (lambda (bit)       ; 0 oppure 1
@@ -41,7 +43,10 @@
 
 
 ;RICORSIVE CON TASSELLI
+;posizionamento di n tasselli in una sequenza di lunghezza variabile
+;i tasselli possono essere di dimensioni diverse
 
+;tasselli di due diverse dimensioni, quadrata e rettangolare
 (define tass-qr  ;val: intero positivo
   (lambda (n)    ;n: intero positivo
      (cond 
@@ -54,6 +59,7 @@
   )
 )
 
+;tasselli di uguale dimensione ma diverso colore
 (define tass-rb  ;val: intero positivo
   (lambda (n)    ;n: intero positivo
      (cond 
@@ -67,6 +73,8 @@
 )
 
 ;RICORSIVA PERCORSI DI MANHATTAN
+;l'obiettivo è andare da un punto A ad un punto B su un reticolo n*n
+;le svolte permesse sono soltanto due, in bassoe a destra in quanto non è conveniente tornare indietro
 
 (define percorsi  ;val: intero
   (lambda (i j)   ;i e j interi non negativi
@@ -77,3 +85,17 @@
        )
    )
 )
+
+;RICORSIVA CON PIATTI E DOLCETTI (numeri di stirling del secondo tipo)
+;posizionare n dolcetti in k piatti, ma mettendo almeno un dolcetto per piatto
+
+(define st ;val: intero 
+  (lambda (n k) ;n e k numeri interi con 1 <= k <= n
+    (if (or (= k 1) (= k n))
+        1
+        (+ (st (- n 1) (- k 1)) (* k (st (- n 1) k)))
+    )
+  )
+)
+
+
