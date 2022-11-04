@@ -29,10 +29,6 @@
 ;; The invert operation can be applied even to color images, though the result
 ;; isn't all that useful.
 
-;; Extended by Claudio Mirolo (6th November 2014) in order to provide tools
-;; for a variety of problems:  With this version also color images may have
-;; transparent background and overlap properly.
-
 
 (module fungraph mzscheme
   (provide 
