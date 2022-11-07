@@ -74,7 +74,7 @@
 
 ;RICORSIVA PERCORSI DI MANHATTAN
 ;l'obiettivo è andare da un punto A ad un punto B su un reticolo n*n
-;le svolte permesse sono soltanto due, in bassoe a destra in quanto non è conveniente tornare indietro
+;le svolte permesse sono soltanto due, in basso e a destra in quanto non è conveniente tornare indietro
 
 (define percorsi  ;val: intero
   (lambda (i j)   ;i e j interi non negativi
@@ -98,4 +98,70 @@
   )
 )
 
+
+;ALLINEAMENTO DI DUE SEQUENZE
+;trovare la più lunga sottosequenza comune (LCS) alle due macro sequenze
+;sottostringa di stesse lettere nello stesso ordine
+
+;ESEMPI per IDEA
+;llcs( Ax, By ) --> k (lunghezza della LCS)
+;llcs( Ax, Ay ) = 1 + llcs( x, y ) [1]
+;llcs( Ax, By ) = max( llcs( Ax, y ) llcs( x, By ) ) se  a != b [3]
+;Casi base : llcs( "", y ) llcs( x, "" ) llcs = 0 [2]
+
+;calcola la LUNGHEZZA della sottosequenza comune più lunga, non come è formata
+(define llcs   ; val: intero non negativo
+ (lambda (u v) ; u,v: stringhe
+     (cond ((or (string=? u "") (string=? v "")) ;[2]
+            0)
+           ((char=? (string-ref u 0) (string-ref v 0)) ;[1]
+            (+ 1 (llcs (substring u 1) (substring v 1) )))
+           (else                            ;[3]
+            (max (llcs u (substring v 1))
+                 (llcs (substring u 1) v)
+            ))
+     )
+  )
+ )
+
+;calcola la LCS vera e propria, non la lunghezza
+;uso la funzione precedente ma sostituisco gli interi con le stringhe
+
+(define lcs   ; val: stringa
+ (lambda (u v) ; u,v: stringhe
+     (cond ((or (string=? u "") (string=? v "")) ;[2]
+            "")
+           ((char=? (string-ref u 0) (string-ref v 0)) ;[1]
+            (string-append
+             (substring u 0 1)
+             (lcs (substring u 1) (substring v 1))
+             ))
+           (else ;[3]
+            (longest ;calcola la stringa più lunga delle due
+             (lcs u (substring v 1))
+             (lcs (substring u 1) v)
+            ))
+     )
+  )
+ )
+
+;calcola la stringa più lunga tra le due in input
+
+(define longest ;val: stringa
+  (lambda (u v) ;u,v: stringhe
+    (let (( m (string-length u))
+          ( n (string-length v))
+         )
+     (cond ((< m n)
+            v)
+           ((> m n)
+            u)
+           ((= (random 2) 0)
+            v)
+           (else
+            u)
+      )
+   )
+ )
+)
 
