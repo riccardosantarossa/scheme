@@ -58,14 +58,23 @@
           )))
 
 ;Toglie gli zeri in testa
-(define normalized-btr ;val: stringa normalizzata (senza zeri quindi snza ".")
-  (lambda (d) ;stringa di . , +, -        
-      (if (string=? (substring d 0 1) ".")
-          (normalized-btr (substring d 1) )
-          (string-append d)
-      )
+;(define normalized-btr ;val: stringa normalizzata (senza zeri quindi snza ".")
+ ;(lambda (d) ;stringa di . , +, -        
+  ;    (if (string=? (substring d 0 1) ".")
+   ;       (normalized-btr (substring d 1) )
+    ;      (string-append d)
+     ; )
+    ;)
+ ;)
+
+(define normalized-btr
+  (lambda (s)
+    (if (>= (string-length s) 1)
+        (if (char=? (string-ref s 0) #\.) (normalized-btr (substring s 1 (string-length s))) s )
+     ""
     )
- )
+  )
+)
 
 ;Restituisce il cartattere corrispondente alla cifra meno significativa
 (define lsd ;val: carattere
@@ -88,10 +97,12 @@
   (lambda (btr) ;stringa di +, -, .
     (if (string=? btr "")
         ""
-        (substring btr 0 (- (string-length btr) 1 ))
+        (if (= (string-length btr) 1)
+           btr
+           (substring btr 0 (- (string-length btr) 1 ))
      )
   )
-)
+))
 
 ;Restituisce il riporto della somma tra due caratteri e il CARRYin
 (define btr-carry                   ; val:     carattere +/./-
@@ -140,5 +151,35 @@
                  ((char=? v #\+) ;u+v = - rip +
                   #\+)
            )
-)))
+))))
+
+;Funzione che raggruppa i risultati di digit-sum e btr-carry
+;"xxx|x" "yyy|y" --> (digit-sum x y) (carry x y) -----> (digit-sum xxx) (carry yyy)
+
+(define btr-carry-sum
+  (lambda (u v c)
+    (let (( un (normalized-btr u))
+          ( vn (normalized-btr v))
+          )
+      (if (> (string-length vn) 1)
+          (string-append 
+           (string (btr-digit-sum (lsd un) (lsd vn) c))
+           (string (btr-carry-sum (head un) (head vn) (btr-carry (lsd un) (lsd vn) (btr-carry (lsd un) (lsd vn) c))))
+          )
+          "")
+      )
+    )
+   )
+
+
+;Funzione principale del programma che fa la somma di due interi in notazione
+;ternaria bilanciata
+(define btr-sum
+  (lambda (u v)
+     (btr-carry-sum u v #\.)
+    )
+  )
+
+(btr-sum "+-.+" "-+.-") 
+
 
