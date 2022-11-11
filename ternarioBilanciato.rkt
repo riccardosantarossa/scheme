@@ -3,7 +3,7 @@
 #lang racket 
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname ternarioBilanciato) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 
-;RAPPRESENTAZIONE NEL SISTEMA TERNARIO BILANCIATO
+;RAPPRESENTAZIONE NEL SISTEMA TERNARIO BILANCIATO (esempio)
 
 (define btd-val ;val: -1, 0, +1
   (lambda (btd) ;btd: "-", ".", "+"
