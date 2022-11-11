@@ -3,6 +3,8 @@
 #lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname frasi) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 
+;COSTRUISCE UNA FRASE DAI PARAMETRI IN INPUT, SOGGETTO, VERBO E COMPL. OGGETTO
+
 (define articolo ;val restituito : stringa
   (lambda (s) ; controllo l'ultima lettera del soggetto e oggetto e aggiungo gli articoli di conseguenza
     (cond
