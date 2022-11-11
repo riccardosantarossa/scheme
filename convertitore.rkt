@@ -3,6 +3,8 @@
 #lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname convertitore) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 
+;CONVERTE I NUMERI DA BINARIO A DECIMALE, INTERI O CON LA VIRGOLA
+
 (define intera ;val: numero intero
   (lambda (n) ;calcola il valore della parte intera con la notazione posizionale
    (if (>= (string-length n) 1) 
