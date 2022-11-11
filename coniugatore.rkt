@@ -29,7 +29,7 @@
 
 (define Coniuga           ;val: stringa
   (lambda (s)
-    (cond
+    (cond         ;condizione multipla COND
       [(equal? (Desinenza s)  "are") (ParticipioAre s)]
       [(equal? (Desinenza s)  "ere") (ParticipioEre s)]
       [(equal? (Desinenza s)  "ire") (ParticipioIre s)]
