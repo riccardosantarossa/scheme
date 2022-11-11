@@ -101,7 +101,7 @@
 
 
 ;ALLINEAMENTO DI DUE SEQUENZE
-;trovare la più lunga sottosequenza comune (LCS) alle due macro sequenze
+;trovare la più lunga sottosequenza comune alle due macro sequenze
 ;sottostringa di stesse lettere nello stesso ordine
 
 ;ESEMPI per IDEA
