@@ -57,20 +57,6 @@
                          #\.)))))
           )))
 
-;Toglie gli zeri in testa
-;(define normalized-btr ;val: stringa normalizzata (senza zeri quindi snza ".")
- ;(lambda (d) ;stringa di . , +, -        
-  ;    (if (string=? (substring d 0 1) ".")
-   ;       (normalized-btr (substring d 1) )
-    ;      (string-append d)
-     ; )
-<<<<<<< HEAD
-    ;😉
- ;😉
-=======
-    ;)
- ;)
->>>>>>> dd77b741742f7fe61f3aa843cfcecf154a9286b2
 
 (define normalized-btr
   (lambda (s)
@@ -164,28 +150,6 @@
                          #\.)
                         ((char=? c #\+)  
                          #\+)))
-<<<<<<< HEAD
-                 ((char=? v #\+)
-                  (cond ((char=? c #\-)  ;
-                         #\-)
-                        ((char=? c #\.)  
-                         #\+)
-                        ((char=? c #\+)  
-                         #\+)))))
-          )))
-
-;Funzione che raggruppa i risultati di digit-sum e btr-carry
-(define btr-carry-sum
-  (lambda (u v c)
-      (if (or (>= (string-length u) 1 ) (>= (string-length v) 1 ))
-          (string-append (btr-carry-sum (head u) (head v) (btr-carry (lsd u) (lsd v) (btr-carry (lsd u) (lsd v) c))) (string (btr-digit-sum (lsd u) (lsd v) c)))
-          
-         ""
-          )
-    )
-   )
-
-=======
                  ((char=? v #\+) ;u+v = - rip +
                   #\+)
            )
@@ -209,24 +173,13 @@
     )
    )
 
-
->>>>>>> dd77b741742f7fe61f3aa843cfcecf154a9286b2
 ;Funzione principale del programma che fa la somma di due interi in notazione
 ;ternaria bilanciata
 (define btr-sum
   (lambda (u v)
-<<<<<<< HEAD
      (btr-carry-sum (normalized-btr u) (normalized-btr v) #\.)
     )
   )
-=======
-     (btr-carry-sum u v #\.)
-    )
-  )
-
-(btr-sum "+-.+" "-+.-") 
-
->>>>>>> dd77b741742f7fe61f3aa843cfcecf154a9286b2
 
 ;TEST
 ;(btr-sum "-" "+")
