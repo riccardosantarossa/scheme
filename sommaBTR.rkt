@@ -2,7 +2,9 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #lang racket 
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname sommaBTR) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
-;SOMMA CIFRE DEL SISTEMA TERNARIO BILANCIATO
+
+;SOMMA CIFRE DEL SISTEMA TERNARIO BILANCIATO CON RIPORTO
+
 (define btr-digit-sum                    ; val:     carattere +/./-
   (lambda (u v c)                        ; u, v, c: caratteri +/./-
     (cond ((char=? u #\-)                ; u v c
