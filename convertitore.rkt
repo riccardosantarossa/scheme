@@ -1,6 +1,8 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
+#lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname convertitore) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
+
 (define intera ;val: numero intero
   (lambda (n) ;calcola il valore della parte intera con la notazione posizionale
    (if (>= (string-length n) 1) 

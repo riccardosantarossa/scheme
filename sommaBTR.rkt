@@ -1,5 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
+#lang racket 
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname sommaBTR) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 ;SOMMA CIFRE DEL SISTEMA TERNARIO BILANCIATO
 (define btr-digit-sum                    ; val:     carattere +/./-
@@ -57,6 +58,17 @@
                          #\.)))))
           )))
 
+;Toglie gli zeri in testa
+;(define normalized-btr ;val: stringa normalizzata (senza zeri quindi snza ".")
+ ;(lambda (d) ;stringa di . , +, -        
+  ;    (if (string=? (substring d 0 1) ".")
+   ;       (normalized-btr (substring d 1) )
+    ;      (string-append d)
+     ; )
+    ;
+ ;
+    ;)
+ ;)
 
 (define normalized-btr
   (lambda (s)
@@ -150,26 +162,23 @@
                          #\.)
                         ((char=? c #\+)  
                          #\+)))
-                 ((char=? v #\+) ;u+v = - rip +
-                  #\+)
-           )
-))))
+                 ((char=? v #\+)
+                  (cond ((char=? c #\-)  ;
+                         #\-)
+                        ((char=? c #\.)  
+                         #\+)
+                        ((char=? c #\+)  
+                         #\+)))))
+          )))
 
 ;Funzione che raggruppa i risultati di digit-sum e btr-carry
-;"xxx|x" "yyy|y" --> (digit-sum x y) (carry x y) -----> (digit-sum xxx) (carry yyy)
-
 (define btr-carry-sum
   (lambda (u v c)
-    (let (( un (normalized-btr u))
-          ( vn (normalized-btr v))
+      (if (or (>= (string-length u) 1 ) (>= (string-length v) 1 ))
+          (string-append (btr-carry-sum (head u) (head v) (btr-carry (lsd u) (lsd v) (btr-carry (lsd u) (lsd v) c))) (string (btr-digit-sum (lsd u) (lsd v) c)))
+          
+         ""
           )
-      (if (> (string-length vn) 1)
-          (string-append 
-           (string (btr-digit-sum (lsd un) (lsd vn) c))
-           (string (btr-carry-sum (head un) (head vn) (btr-carry (lsd un) (lsd vn) (btr-carry (lsd un) (lsd vn) c))))
-          )
-          "")
-      )
     )
    )
 

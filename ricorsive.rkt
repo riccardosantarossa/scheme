@@ -1,5 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
+#lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname ricorsive) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;Complemento a 1 mediante RICORSIONE
 ;di una sequenza in ingresso creo il suo equivalente
