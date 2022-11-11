@@ -2,6 +2,9 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname |prime prove con variabili|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+
+;PROCEDURE BASE DI ESEMPIO PER I COSTRUTTI
+
 ;CALCOLO SUPERFICIE CILINDRO
 (define supCil            ; valore restituito: reale
   (lambda (r h)           ; r,h: float (misure)
