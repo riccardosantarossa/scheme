@@ -2,7 +2,8 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #lang racket
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname rapprBinario) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
-;CONVERTE UN NUMERO BINARIO IN UN NUMERO INTERO IN BASE 10
+
+;CONVERTE UN NUMERO BINARIO IN UN NUMERO IN BASE 10
 
 (define bit-val ;val: 0/1
   (lambda (bit) ;bit: stringa che vale 0 oppure 1
