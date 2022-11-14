@@ -1,7 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#lang racket
-#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname ricorsive) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname ricorsive) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 ;Complemento a 1 mediante RICORSIONE
 ;di una sequenza in ingresso creo il suo equivalente
 ;mediante il complemento a 1 ovvero invertendo gli 0 con gli 1
@@ -166,3 +165,85 @@
  )
 )
 
+
+
+;CALCOLO DELLA SERIE DI FIBONACCI MEDIANTE RICORSIONE
+;in un ambiente sperimentale, all'istante zero c'è una sola coppia di conigli, una coppia di conigli fertile all'istante t dà alla luce
+;una nuova coppia di conigli ad ogni mese successivo. i conigli nati all'istante t diventano fertili all'istante t+1
+;i conigli nascono sempre a coppie di un maschio e una femmina
+
+;SUCCESSIONE
+; t = 0 : 1 coppia fertile
+; t = 1 : 1 coppia fertile + 1 coppia cucciola
+; t = 2 : 2 coppie fertili + 1 coppia cucciola
+;...
+; t generico    : f coppie fertili   + c coppie cucciole
+; t generico +1 : f+c coppie fertili + f coppie cucciole
+
+;f(t+1) = f(t) + c(t)
+;c(t+1) = f(t)
+
+(define coppie-cuccioli ;val: intero
+  (lambda (t)    ;t: intero non negativo
+    (if (= t 0)
+        0
+        (coppie-fertili (- t 1))
+    )
+  )
+ )
+
+(define coppie-fertili ;val: intero
+  (lambda (t)   ;t: intero non negativo
+    (if (= t 0)
+        1
+        (+ (coppie-fertili (- t 1)) (coppie-cuccioli (- t 1)))
+    )
+  )
+)
+
+(define coppie ;val: intero
+  (lambda (t) ;t: intero non negativo
+    (+ (coppie-fertili t) (coppie-cuccioli t))
+  )
+)
+
+
+
+;DETERMINAZIONE DI UN NUMERO PRIMO
+;controlla se il numero in ingresso è primo
+
+(define primo? ;val: booleano
+  (lambda (n)  ;n: intero >=2
+    (not (ha-divisori-in? n 2 (- n 1)))
+  )
+)
+
+(define ha-divisori-in? ;val: booleano
+  (lambda (n a b)  ;n >=2 intero, [a,b]: intervallo di interi
+    (cond ((> a b)
+        false)
+        (( = (remainder n a) 0)
+         true)
+        (else 
+         (ha-divisori-in? n (+ a 1) b)
+        )
+    )
+  )
+)
+
+(define lista-primi ;val: lista primi in [n,k]
+  (lambda (k n)     ;k, n interi
+    (cond ((> k n)
+           null)
+          ((primo? k)
+           (cons k (lista-primi (+ k 1) n))
+          )
+          (else
+           (lista-primi (+ k 1) n)
+          )
+    )
+  )
+)
+
+
+  
