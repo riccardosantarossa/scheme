@@ -3,8 +3,8 @@
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname manhattan3d) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 ;PERCORSI DI MANHATTAN IN RETICOLO 3D
 
-(define manhattan-3d
-  (lambda (i j k)
+(define manhattan-3d ;val: intero
+  (lambda (i j k) ;i, j, k interi non negativi
 
     ;se 2/3 delle dimensioni sono 0 allora il risultato è 1    
     (if (or (and (= i 0) (= j 0)) (and (= i 0) (= k 0)) (and (= j 0) (= k 0)))
