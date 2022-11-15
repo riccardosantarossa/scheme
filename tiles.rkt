@@ -3,19 +3,32 @@
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname tiles) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 ;TASSELLLAZIONE CON SEMPLICE PIASTRELLA A L
 
+;Funzione per la tassellazione generale
 (define L-tessellation ;val: grafico
-  (lambda (n) ;n: intero
+  (lambda (n figura) ;n: intero
     (cond ((= n 1)
            L-tile)
           ((= n 2)
             pattern)
-          (else "")
+          (else
+           (if (= (/ n 2) 2)
+             (glue-tiles
+              figura (glue-tiles
+                      (glue-tiles
+                       (shift-down (quarter-turn-left figura) 1)
+                       (shift-right (quarter-turn-right figura) 1)
+                       )
+                      (shift-right (shift-down figura 0.5) 0.5)
+                      )
+              )
+             ""
+            )
+          )
     )
    )
- )
+)
 
-
-;Figura base per le tassellazioni successive
+;Figura base
 (define pattern
   (glue-tiles
    L-tile (glue-tiles
@@ -27,3 +40,9 @@
            )
    )
 )
+
+
+
+
+
+
