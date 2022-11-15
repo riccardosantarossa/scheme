@@ -24,8 +24,8 @@
 )
 
 ;Funzione che tratta i casi base e anche la ricorsione 
-(define disegno
-  (lambda (n k figura)
+(define disegno      ;val: grafico
+  (lambda (n k figura) ;n, k: interi, pattern: figura da scalare
         (cond ((= n 1)
            L-tile)
           ((= n 2)
