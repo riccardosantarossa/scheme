@@ -10,7 +10,7 @@
    )
 )
 
-;Figura base
+;Figura base ottenuta combinand L-Tile
 (define pattern
   (glue-tiles
    L-tile (glue-tiles
