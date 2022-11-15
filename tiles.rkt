@@ -5,26 +5,8 @@
 
 ;Funzione per la tassellazione generale
 (define L-tessellation ;val: grafico
-  (lambda (n figura) ;n: intero
-    (cond ((= n 1)
-           L-tile)
-          ((= n 2)
-            pattern)
-          (else
-           (if (= (/ n 2) 2)
-             (glue-tiles
-              figura (glue-tiles
-                      (glue-tiles
-                       (shift-down (quarter-turn-left figura) 1)
-                       (shift-right (quarter-turn-right figura) 1)
-                       )
-                      (shift-right (shift-down figura 0.5) 0.5)
-                      )
-              )
-             ""
-            )
-          )
-    )
+  (lambda (n) ;n: intero
+    (disegno n 2 pattern)
    )
 )
 
@@ -41,8 +23,39 @@
    )
 )
 
+;Funzione che tratta i casi base e anche la ricorsione 
+(define disegno
+  (lambda (n k figura)
+        (cond ((= n 1)
+           L-tile)
+          ((= n 2)
+            pattern)
+          (else
+           (if (= (/ n k) 2)
+             (glue-tiles
+              figura (glue-tiles
+                      (glue-tiles
+                       (shift-down (quarter-turn-left figura) k)
+                       (shift-right (quarter-turn-right figura) k)
+                       )
+                      (shift-right (shift-down figura (/ k 2) ) (/ k 2))
+                      )
+              )
+             (disegno n (* k 2) (glue-tiles
+              figura (glue-tiles
+                      (glue-tiles
+                       (shift-down (quarter-turn-left figura) k)
+                       (shift-right (quarter-turn-right figura) k)
+                       )
+                      (shift-right (shift-down figura (/ k 2) ) (/ k 2))
+                      )))
+            )
+          )
+    )
 
-
+  )
+  
+)
 
 
 
