@@ -231,6 +231,7 @@
   )
 )
 
+;restituisce la lista di numeri primi in un intervallo dato
 (define lista-primi ;val: lista primi in [n,k]
   (lambda (k n)     ;k, n interi
     (cond ((> k n)
@@ -244,6 +245,47 @@
     )
   )
 )
+
+
+;MOLTIPLICAZIONE CON IL METODO DEL CONTADINO RUSSO
+
+(define mul      ;val: intero non negativo
+  (lambda (m n)  ;m,n : interi non negativo
+    (cond ((= n 0)
+          0
+          )
+         ((even? n)
+          (mul (* 2 m ) (quotient n 2))
+          )
+         (else
+          (+ m (mul (* 2 m ) (quotient n 2)))
+         )
+   )
+  )
+)
+
+
+;CALCOLO DEL MASSIMO COMUNE DIVISORE TRA DUE NUMERI
+
+(define mcd      ;val: intero positivo
+  (lambda (x y)  ;x,y: interi positivi
+    (cond  ((= x y)
+            x)
+           ((< x y)
+            (mcd x (- y x))
+            )
+           (else
+            (mcd (- x y) y)
+           )
+    )
+  )
+)
+
+
+
+
+
+
 
 
   
