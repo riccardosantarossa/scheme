@@ -264,6 +264,27 @@
   )
 )
 
+;MOLTIPLICAZIONE CON RICORSIONE DI CODA
+
+(define mul2
+  (lambda (m n)
+    (mul-tr m n 0)
+   )
+)
+
+(define mul-tr      ;val: intero non negativo
+  (lambda (m n p)  ;m, n, p : interi non negativo
+    (cond ((= n 0)
+          p
+          )
+         ((even? n)
+          (mul-tr (* 2 m ) (quotient n 2) p)
+          )
+         (else
+          (mul-tr (* 2 m ) (quotient n 2) (+ m p)))
+         )
+   )
+  )
 
 ;CALCOLO DEL MASSIMO COMUNE DIVISORE TRA DUE NUMERI
 
