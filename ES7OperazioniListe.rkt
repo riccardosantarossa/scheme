@@ -45,7 +45,6 @@
     ))
 
 
-
 ;Mediante un contatore ricerca l'elemento all'interno della lista
 (define getIndex ;val: intero non negativo
   (lambda (x list i) ;x: intero, list: lista di interi, i: intero non negativo
