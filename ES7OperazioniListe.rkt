@@ -4,7 +4,7 @@
 
 ;Verifica se un elemento appartiene o meno alla lista data in input
 (define belong? ;val: true/false
-  (lambda (x S) ;x: intero, S:lista di interi
+  (lambda (x S) ;x: intero, S: lista di interi
      (cond
        ((null? S)
         false)
@@ -17,10 +17,18 @@
    )
 )
 
+;Restituisce l'indice del numero cercato nella lista
+(define position ;val: intero non negativo
+  (lambda (x S)  ;x: intero, S lista di interi
+     (getIndex  x S 0)
+   )
+)
+
+
 
 ;Inserisce un numero in una lista ordinata e senza ripetizioni
 (define sorted-ins ;val: lista
-  (lambda (x S)   ;x: intero, S:lista ordinata di interi
+  (lambda (x S)   ;x: intero, S: lista ordinata di interi
     (cond
       ((null? S)
         (cons x S)
@@ -35,3 +43,14 @@
        )
     )
     ))
+
+
+
+;Mediante un contatore ricerca l'elemento all'interno della lista
+(define getIndex ;val: intero non negativo
+  (lambda (x list i) ;x: intero, list: lista di interi, i: intero non negativo
+    (if (= x (car list))
+        i
+        (getIndex x (cdr list) (+ i 1))
+    )
+   ))
