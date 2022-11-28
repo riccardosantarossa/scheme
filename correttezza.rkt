@@ -21,3 +21,15 @@
     )
   )
 )
+
+
+;PROCEDURA DELLA QUALE VALUTARE LA CORRETTEZZA
+
+(define ufo            ; valore: ?
+         (lambda (x)          ; x > 0 naturale
+           (cond ((= x 1) 1)
+                 ((even? x)   ; x pari
+                  (- (* 2 (ufo (quotient x 2))) 1))
+                 (else        ; x dispari
+                  (+ (* 2 (ufo (quotient x 2))) 1))
+                 )))
