@@ -24,7 +24,14 @@
    )
 )
 
-
+;Mediante un contatore ricerca l'elemento all'interno della lista
+(define getIndex ;val: intero non negativo
+  (lambda (x list i) ;x: intero, list: lista di interi, i: intero non negativo
+    (if (= x (car list))
+        i
+        (getIndex x (cdr list) (+ i 1))
+    )
+   ))
 
 ;Inserisce un numero in una lista ordinata e senza ripetizioni
 (define sorted-ins ;val: lista
@@ -39,17 +46,26 @@
         (cons x S)
        )
       (else
-       (sorted-ins x (cdr S))
+       (cons (car S) (sorted-ins x (cdr S)))
        )
     )
-    ))
+  )
+)
 
-
-;Mediante un contatore ricerca l'elemento all'interno della lista
-(define getIndex ;val: intero non negativo
-  (lambda (x list i) ;x: intero, list: lista di interi, i: intero non negativo
-    (if (= x (car list))
-        i
-        (getIndex x (cdr list) (+ i 1))
+;Procedura che riordina la lista
+(define sorted-list
+  (lambda (S)
+    (let ((l2 '()))
+      (if (> (car S) (car (cdr S)))
+          (cons (car S) l2)
+          (sorted-list (cdr S))
+       )
     )
-   ))
+  )
+)
+
+
+
+
+  
+
