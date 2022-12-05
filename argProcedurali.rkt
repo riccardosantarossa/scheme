@@ -16,8 +16,7 @@
          (enc (substring msg 1) rule)  ;rule è una regola che posso scegliere e usare nella finestra dei test
         )                              ;nel nostro caso sarà la procedura rot-3
      )
-   )
-)
+   ))
 
 ;cifra con il cifrario di cesare, shift di 3
 
@@ -30,9 +29,7 @@
           (integer->char k)
           (integer->char (- k 26))
       )
-    )   
-  )
-)
+    )))
 
 (define pos-Z (char->integer #\Z))
 (define pos-A (char->integer #\A))
@@ -49,9 +46,7 @@
           (integer->char (- k 26))
       )
     )   
-  )
-)
-
+  ))
 
 ;VALORI PROCEDURALI
 
@@ -68,11 +63,7 @@
              (integer->char (- k 26))
          )
       )   
-    )
-    
-  )
-)
-
+    )))
 
 ;PROCEDURA CON ARGOMENTI E VALORI PROCEDURALI ASSIEME
  
@@ -104,6 +95,60 @@
     )
   )
 )
+
+
+;FUNZIONE MAP
+;applica la funzione passata come parametro a tutti gli elementi della lista passata come
+;secondo parametro (map (lambda (...) ...) '(...))
+
+;funzone map artigianale
+
+(define mappa   ;val: lista di elementi in D
+  (lambda (f s) ;f: procedura [D -> I], s: lista di elementi in D
+    (if (null? s)
+       null
+       (cons (f (car s)) (mappa f (cdr s)))
+    )
+   )
+)
+
+
+;;FUNZIONI DI ORDINE SUPERIORE
+
+;operatore di composizione tra funzioni cp = f°g = g(f(x))
+
+(define comp    ;val; D->F
+  (lambda (g f) ;f: D->E, g: E->F
+    (lambda (x)
+      (g (f x))
+    )
+  )
+)
+
+
+;iteratore funzionale: modifica il valore di x iterando K volte una funzione
+;passata come parametro
+
+(define iter    ;val: procedura D->D
+  (lambda (f k) ; f: D->D, k: intero >= 0
+    (lambda (x)
+      (if (= k 0)
+        x
+        (f ((iter f (- k 1)) x))
+      )
+    )
+))
+
+;seconda definizione di iterata usando la composizione
+
+(define iter2   ;val: procedura D->D
+  (lambda (f k)
+    (if (= k 0)
+       (lambda (x) x)   ;invece che restituire direttamente x applico la funz. identica
+       (comp f (iter2 (- k 1))) ;uso la composizione definita in precedenza
+     )
+  ))
+
 
 
 
