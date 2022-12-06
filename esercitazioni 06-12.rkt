@@ -20,16 +20,17 @@
       )
    ))
 
+(define L '() )
+
 (define shared
-  (lambda (l1 l2)
-    (let ((Lout '()))
-      (if (belong? (car l1) l2)
-          (cons (car l1) Lout)
-          (shared (cdr l1) l2)
-       )
+  (lambda (u v)
+      (if (belong? (car u) v)
+          (begin
+           (cons (car u) L)
+           (shared (cdr u) v)
+          (shared (cdr u) v)
       )
-    ))
+))
 
 
-(shared '(1 2 3) '(2 3 4))
 
