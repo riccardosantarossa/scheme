@@ -80,15 +80,72 @@
 
 ;caso base:
 
-(f "011") --> 3*2^(3-2) - 1 = 5
+;(f "011") --> 3*2^(3-2) - 1 = 5
 
 ;ipotesi induttiva: considero k >= 3 intero e prendo t = "11...1011" di lunghezza k
 
-(f t) --> 3*2^(k-2) - 1
+;(f t) --> 3*2^(k-2) - 1
 
 ;passo induttivo: per k e t considerati sopra
 
-(f t') --> 3*2^((k+1)-2) - 1 ;dove t' è t preceduto da "1"
+;(f t') --> 3*2^((k+1)-2) - 1 ;dove t' è t preceduto da "1"
+
+
+
+
+;PROVA D'ESAME 29.01.2021: temi A e B misti
+
+;ES1B dati due caratteri la procedura pair riceve la coppia ordinata dei due caratteri (lista)
+;date due liste, la procedura pair-list applica pair e restituisce la lista di coppie ordinate 
+
+(define pair    ;val: lista
+  (lambda (x y) ;x, y: carattere
+   (if (char<? y x)
+       (list y x)
+       (list x y)
+   )
+))
+
+(define pair-list  ;val: lista di coppie
+  (lambda (lx ly)  ;lx, ly: liste di caratteri
+    (if (null? lx)
+        null
+       (cons (pair (car lx) (car ly)) (pair-list (cdr lx) (cdr ly))) 
+    )   
+  ))
+
+
+
+;ES2A completare il codice che restituisce i caratteri da rimuovere per ottenere la LCS tra
+;le due stringe fornite in inèut
+
+(define lcs-align ; val: coppia di liste di caratteri
+ (lambda (u v) ; u, v: stringhe
+   (let ((m (string-length u)) (n (string-length v)))
+     
+     (cond ((or (= m 0) (= n 0))
+            (list (string->list u) (string->list v)))
+           ((char=? (string-ref u 0) (string-ref v 0))
+              (lcs-align (substring u 1) (substring v 1)) 
+             )
+           (else
+            (let ((du (lcs-align (substring u 1) v))
+                  (dv (lcs-align (substring v 1) u))
+                  )
+ (if (> (+ (length (car du)) (length (cadr du)))
+        (+ (length (car dv)) (length (cadr dv))))
+     (list (car dv) (cons (string-ref v 0) (cadr dv)))
+     (list (cons (string-ref u 0) (cadr du)) (cadr du))
+ )))
+ ))))
+
+
+
+
+
+
+
+
 
 
 
