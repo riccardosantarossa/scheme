@@ -91,7 +91,7 @@
 ;(f t') --> 3*2^((k+1)-2) - 1 ;dove t' è t preceduto da "1"
 
 
-
+;--------------------------------------------------------------------------------------------------------
 
 ;PROVA D'ESAME 29.01.2021: temi A e B misti
 
@@ -139,13 +139,115 @@
  )))
  ))))
 
+;--------------------------------------------------------------------------------------------------------
+
+;PROVA D'ESAME 04.02.2020: temi A e B misti
+
+;ES2B rendere minuscola la prima lettera di ogni parola della lista, ma SOLO la prima lettera
+
+(define lower-case ;val: stringa
+  (lambda (s)      ;s: stringa
+    (string-append 
+     (string (char-downcase (string-ref s 0)))
+     (substring s 1))
+  )
+)
+
+(define lower-first ;val: lista di stringhe 
+  (lambda (u) ;u: lista di stringhe 
+    (map lower-case u)
+  )
+)
 
 
+;ES3A  determinare il valore intero di un numero in ternario bilanciato BTR
+
+(define btr-val-tr ; val: intero
+   (lambda (btr 0)   ; btr: stringa di – / . / +
+     (btr-val-rec btr )
+ ))
+
+(define btr-val-rec ; val: intero
+  (lambda (btr n)    ; btr: stringa di – / . / +, n: valore numerico parziale (accumulatore) 
+    (let ((k (string-length btr))
+          )
+      (if (= k 0)
+          n
+          (let ((q (substring btr 1 ))
+                (t (string-ref  btr 0))
+                )
+           (btr-val-rec q (+ (* 3 n) (btd-val t)))
+ )))
+ ))
+
+(define btd-val
+ (lambda (t)
+   (cond ((char=? t #\-) -1)
+         ((char=? t #\.) 0)
+         ((char=? t #\+) +1)
+   )
+ ))
 
 
+;ES4B dim. per induzione sull'esercizio 1
+
+;VALORE SU CUI IMPOSTARE LA DIMOSTRAZIONE
+;n
+
+;CASO BASE
+
+;pongo n = 0
+;Per ogni s nell'intervallo [0,0] (f 0 1 0 1) --> 0-0 = 0
 
 
+;IPOTESI INDUTTIVA
 
+;Considero n>=0 : Per ogni s nell'intervallo [0,n] (f s 1 n 1) --> n-s
+
+
+;PASSO INDUTTIVO
+
+;Per n considerato nell'ipotesi : Per ogni s nell'intervallo [0,n+1] (f s 1 n+1 1) --> n+1-s
+
+
+;DIMOSTRAZIONE DEL PASSO INDUTTIVO
+
+;(f s 1 n+1 1) --> 
+
+;a. s = n+1 : (f n+1 1 n+1 1) --> 0 = n+1-n-1
+
+;b. s in [0,n] : (f s 1 n+1 1) 
+
+;                          --> (+ (f s 1 (- n+1 1) 1) (f s 1 n+1 (- 1 1)))
+
+;                          --> (+ (f s 1 n 1) (f s 1 n+1 (- 1 1)))
+
+;Applico l'ip. induttiva:  --> (+ n-s (f s 1 n+1 (- 1 1)))
+
+;                          --> (+ n-s (f s 1 n+1 0))
+
+;                          --> (+ n-s 1) = n+1-s CVD
+
+
+;ES5A procedura che restituisce le possibili stringhe di 0 e 1 contenenti al massimo k volte 1
+
+(define combinations ; val: lista di stringhe
+ (lambda (k n)       ; k, n: interi non negativi
+   (if (= n 0)
+       (list "")
+       (let ((u (if (= k 0)
+              null
+              (combinations (- k 1) (- n 1))
+            ))
+         (v (combinations k (- n 1)))
+         )
+         (append
+          (map (lambda (s) (string-append "1" s)) u)
+          (map (lambda (s) (string-append "0" s)) v)
+ )))
+ ))
+
+;--------------------------------------------------------------------------------------------------------
 
 
 
