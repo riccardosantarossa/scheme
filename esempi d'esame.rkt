@@ -163,7 +163,7 @@
 ;ES3A  determinare il valore intero di un numero in ternario bilanciato BTR
 
 (define btr-val-tr ; val: intero
-   (lambda (btr 0)   ; btr: stringa di – / . / +
+   (lambda (btr)   ; btr: stringa di – / . / +
      (btr-val-rec btr )
  ))
 
@@ -248,6 +248,97 @@
  ))
 
 ;--------------------------------------------------------------------------------------------------------
+
+;PROVA D'ESAME 03.02.2017: temi A e B misti
+
+;ES1
+(define f ; intero
+ (lambda (s) ; lista di interi positivi
+   (g s 0)
+ ))
+
+(define g
+ (lambda (s b)
+   (if (null? s)
+       0
+       (if (<= (car s) b)
+           (g (cdr s) b)
+           (max (g (cdr s) b)
+                (+ (g (cdr s) (car s)) 1))
+ ))))
+
+
+;ES2
+
+(define mh ; val: intero
+ (lambda (i j) ; i, j: interi non negativi
+   (if (or (= i 0) (= j 0))
+       1
+       (+ (md (- i 1) j) (mr i (- j 1)))
+ )))
+
+(define md ; spostamento precedente “in giù”
+   (lambda (i j)
+     (if (or (= i 0) (< j 2) )
+         1
+         (+ (md (- i 1) j ) (mr i (- j 2)))
+ )))
+
+(define mr ; spostamento precedente “a destra”
+  (lambda (i j)
+    (if (or (< i 2) (= j 0))
+        1
+        (+ (md (- i 2) j) (mr i (- j 1)) )
+ )))
+
+
+;ES3
+
+(define is-identifier?  ;val: booleano
+  (lambda (s)           ;s: stringa
+    (cond
+         ((string? "" s) false)
+         ((letter? (string ref s 0))
+          (alfanumeric? (substring s 1)))
+         (else
+          false)
+     )
+    )
+  )
+)
+
+(define letter?   ;val: booleano
+  (lambda (l)     ;l: carattere
+    (or  (and  (char>=? l #\a) (char<=? l #\z))
+         ((and  (char>=? l #\A) (char<=? l #\Z))
+    ))
+  )
+)
+
+(define alfanumeric?
+  (lambda (s)
+    (if (string=? s "")
+        true
+        (let ((c (string-ref s 0)))
+          (if 
+           (or
+            (letter? c)
+            (and  (char>=? s #\0) (char<=? s #\9))
+            (char=? c #\_)
+            )
+      (alfanumeric? (substring s 1))
+      false
+  )))
+)
+
+
+
+
+
+
+
+
+
 
 
 
