@@ -332,43 +332,17 @@
 )
 
 
-;--------------------------------------------------------------------------------------------------------
-  
-;INDUZIONE
-
-; (g x y) --> xy + |x-y|
-
-;PARAMETRO SCELTO : Ogni n in N, ogni k in N --> nk + |n-k|
-
-;CASI BASE : Ogni k in n (g 0 k) --> 0k + |0-k| --> k (dimostrabile seguendo il programma)
-
-;IPOTESI INDUTTIVA : considero un certo n in N e assumo che valga: ogni k in N --> nk + |n-k|
-
-;PASSO INDUTTIVO : per n considerato (g n+1 k) --> (n+1)k + |n+1 - k|
-
-;DIM
-  
-;(g n+1 k) --> ? dipende da come è k, 0 oppure >0
-
-;supponiamo k = 0 : (g n+1 0) --> (+ 0 + n+1 0) --> n+1 (va bene perchè (n+1)*0 + |n+1 -0| = n+1)
-
-;supponiamo k > 0 : (g n+1 k) --> (+ (- (g (- n+1 1) (- k 1)) n+1 k))
-
-;                             --> (+ (- (g n k-1) n+1 k))
-  
-;                             --> (+ (- n(k-1) + |n - k-1| 1) n+1 k)  per ipotesi induttiva
-
-;                             --> n(k-1) + |n - (k-1)| -1 + n+1 + k
-
-;                             --> nk - n + |n - (k-1)| -1 + n+1 + k
-
-;                             --> (n+1)k + |n+1 - k|   CVD
 
 
 
 
 
 
-  
+
+
+
+
+
+
 
 
