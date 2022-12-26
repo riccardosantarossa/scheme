@@ -15,7 +15,7 @@
             ((= n k) ;se la stringa è lunga come k allora è lei stessa
              s) 
             (else
-             (let ((p (cyclic-pattern (substring s k) k))) ;estrago il possibile pattern
+             (let ((p (cyclic-pattern (substring s k) k))) ;estraggo il possibile pattern
                (if (string=? (substring s 0 k) p)
                    p
                    ""
@@ -23,6 +23,19 @@
              )))
 )))
 
+;ES2A tassellazione con piastrelle lunghe 1 e 2 ma le piastrelle singole non possono stare vicine
+
+(define tess-1x-2
+  (lambda (n)
+    (cond ((= n 0)
+           1)
+          ((= n 2)
+           1)
+          (else
+           (+ (tess-1x-2 (- n 3)) (tess-1x-2 (- n 2)))
+          ))
+  )
+)
 
 ;ES2B  tassellazione di un cordolo di lunghezza n>=0 con piastrelle di lunghezza 1 e 2
 ;ma con il vincolo che due piastrelle di lunghezza 2 non possono essere mai vicine
@@ -75,6 +88,34 @@
           )
  )
  ))
+
+;ES3B  restituire la lista di possibili percorsi di manhattan con spostamenti verticali
+;limitati  (il terzo parametro è il numero di spostamenti verticali consecutivi consentiti)
+;nelle stringhe, 0 rappresenta lo spostamento in basso e 1 quello a destra
+
+(define pathsB ; val: lista di stringhe
+ (lambda (i j k) ; i, j, k: interi non negativi
+   (paths-rec i j k k)
+ ))
+
+(define paths-recB
+ (lambda (i j k u)
+   (cond ((= i 0)
+          ((make-string j #\1)))
+         ((= j 0)
+           (make-string k #\0))
+         ((= u 0)
+          (map (lambda (x) (string-append "1" x))
+           (paths-recB i (- j 1) k k)))
+         (else
+          (append
+           (map (lambda (x) (string-append "1" x))
+                (paths-recB (- i 1) j k (- u 1)))
+           (map (lambda (x) (string-append "0" x))
+            (paths-recB i (- j 1) k k))))
+ )
+ ))
+
 
 ;ES4B Dimostrazione di correttezza per induzione 
 
@@ -298,14 +339,14 @@
   (lambda (s)           ;s: stringa
     (cond
          ((string? "" s) false)
-         ((letter? (string ref s 0))
+         ((letter? (string-ref s 0))
           (alfanumeric? (substring s 1)))
          (else
           false)
      )
     )
   )
-)
+
 
 (define letter?   ;val: booleano
   (lambda (l)     ;l: carattere
@@ -329,7 +370,7 @@
       (alfanumeric? (substring s 1))
       false
   )))
-)
+))
 
 
 ;--------------------------------------------------------------------------------------------------------
