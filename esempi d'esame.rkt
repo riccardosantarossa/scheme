@@ -116,6 +116,23 @@
  )
  ))
 
+;ES4A Dimostrazione di correttezza per induzione
+
+;caso base: (f "111") --> 3*2^(3-2) + 1 = 7
+
+;ipotesi induttiva: considero k >= 3 intero e considero la stringa di lunghezza k t = "00...0111" (dove gli 1 sono (k-3))
+
+;(f t) --> 3*2^(k-3) + 1
+
+;passo induttivo : per t e k considerati -> (f t) --> 3*2^((k+1)- 3) + 1 
+
+;(f t) --> 3*2^((k+1)- 3) + 1
+
+;      --> 3*2^(k+2) + 1
+
+;      --> 3*[ 2^k + 4 + 1]
+
+;      --> 3*2^k + 12 + 3 = 3*2^k + 15
 
 ;ES4B Dimostrazione di correttezza per induzione 
 
@@ -136,10 +153,28 @@
 
 ;PROVA D'ESAME 29.01.2021: temi A e B misti
 
+;ES1A data una lista di due numeri, restituire la lista contenente il valor medio e la semidifferenza dei due
+;date due liste usare pair sugli elementi della stessa posizione
+
+(define pair
+  (lambda (x y)
+    (list (/ (+ x y) 2) (/ (abs (- x y)) 2))
+   )
+)
+
+(define pair-list
+  (lambda (l1 l2)
+    (if (null? l1)
+        null
+        (cons (pair (car l1) (car l2)) (pair-list (cdr l1) (cdr l2)))
+    )
+  )
+)
+
 ;ES1B dati due caratteri la procedura pair riceve la coppia ordinata dei due caratteri (lista)
 ;date due liste, la procedura pair-list applica pair e restituisce la lista di coppie ordinate 
 
-(define pair    ;val: lista
+(define pairB    ;val: lista
   (lambda (x y) ;x, y: carattere
    (if (char<? y x)
        (list y x)
@@ -147,31 +182,31 @@
    )
 ))
 
-(define pair-list  ;val: lista di coppie
+(define pair-listB  ;val: lista di coppie
   (lambda (lx ly)  ;lx, ly: liste di caratteri
     (if (null? lx)
         null
-       (cons (pair (car lx) (car ly)) (pair-list (cdr lx) (cdr ly))) 
+       (cons (pairB (car lx) (car ly)) (pair-listB (cdr lx) (cdr ly))) 
     )   
   ))
 
 
 
 ;ES2A completare il codice che restituisce i caratteri da rimuovere per ottenere la LCS tra
-;le due stringe fornite in inèut
+;le due stringe fornite in input
 
-(define lcs-align ; val: coppia di liste di caratteri
+(define lcs-align1 ; val: coppia di liste di caratteri
  (lambda (u v) ; u, v: stringhe
    (let ((m (string-length u)) (n (string-length v)))
      
      (cond ((or (= m 0) (= n 0))
             (list (string->list u) (string->list v)))
            ((char=? (string-ref u 0) (string-ref v 0))
-              (lcs-align (substring u 1) (substring v 1)) 
+              (lcs-align1 (substring u 1) (substring v 1)) 
              )
            (else
-            (let ((du (lcs-align (substring u 1) v))
-                  (dv (lcs-align (substring v 1) u))
+            (let ((du (lcs-align1 (substring u 1) v))
+                  (dv (lcs-align1 (substring v 1) u))
                   )
  (if (> (+ (length (car du)) (length (cadr du)))
         (+ (length (car dv)) (length (cadr dv))))
@@ -179,6 +214,44 @@
      (list (cons (string-ref u 0) (cadr du)) (cadr du))
  )))
  ))))
+
+;ES2B completare il codice che restituisce la lunghezza di LCS tra u e v e
+;la rielaborazione di v in cui i caratteri che non fanno parte della LCS diventano "_"
+
+(define lcs-align ; val: coppia intero/stringa
+  (lambda (u v) ; u, v: stringhe
+    (let ((m (string-length u)) (n (string-length v))
+                                )
+      (cond ((= n 0) (list 0 ""))
+            ((= m 0)
+             (let ((w (lcs-align u (substring v 1))))
+               (list 0 (string-append "_" (cadr w)))
+               ))
+            ((char=? (string-ref u 0) (string-ref v 0))
+             (let ((dx '(0 (string-ref u 0)))
+                   )
+               (list (+ (car dx) 1) (string-append (substring v 0 1) (cadr dx))
+                     )))
+            (else
+             (let ((du (lcs-align (substring u 1) v))
+                   (dv (lcs-align u (substring v 1))
+                   )
+               (if (< (car du) (car dv))
+                   (list (car dv) (string-append "_" (cadr dv)))
+                   .....
+                   )))
+            ))))
+
+;ES3A dimostrazione per induzione
+
+;(f m n) --> n^2 – (m–1)^2
+
+;caso base: m = n = 1  [n-m = 0]
+
+;(f 1 1 ) --> 1 [1^2 - 0]
+
+;passo induttivo:  
+  
 
 ;--------------------------------------------------------------------------------------------------------
 
