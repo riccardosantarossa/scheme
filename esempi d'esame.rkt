@@ -235,10 +235,10 @@
             (else
              (let ((du (lcs-align (substring u 1) v))
                    (dv (lcs-align u (substring v 1))
-                   )
+                   ))
                (if (< (car du) (car dv))
                    (list (car dv) (string-append "_" (cadr dv)))
-                   .....
+                   (lcs-align (substring u 1) (substring v 1))
                    )))
             ))))
 
@@ -257,6 +257,23 @@
 
 ;PROVA D'ESAME 04.02.2020: temi A e B misti
 
+;ES2A rendere maiuscola la prima lettera di ogni parola della lista, ma SOLO la prima lettera
+(define upper-case  ;val: stringa
+  (lambda (w)       ;w: stringa
+    (string-append
+     (string (char-upcase (string-ref w 0)))
+     (substring w 1)
+     )
+  )
+)
+
+(define standard-form ;val: lista di stringhe
+  (lambda (l)         ;l: lista di stringhe
+    (map upper-case l)
+  )
+)
+
+
 ;ES2B rendere minuscola la prima lettera di ogni parola della lista, ma SOLO la prima lettera
 
 (define lower-case ;val: stringa
@@ -268,7 +285,7 @@
 )
 
 (define lower-first ;val: lista di stringhe 
-  (lambda (u) ;u: lista di stringhe 
+  (lambda (u)       ;u: lista di stringhe 
     (map lower-case u)
   )
 )
@@ -278,7 +295,7 @@
 
 (define btr-val-tr ; val: intero
    (lambda (btr)   ; btr: stringa di – / . / +
-     (btr-val-rec btr )
+     (btr-val-rec btr 0)
  ))
 
 (define btr-val-rec ; val: intero
@@ -301,6 +318,54 @@
          ((char=? t #\+) +1)
    )
  ))
+
+;ES3B convertire un numero dalla base 3 alla base 10
+ (define ter-val-tr ; val: intero
+   (lambda (ter) ; ter: stringa di 0 / 1 / 2
+     (ter-val-rec ter 0)
+ ))
+ (define ter-val-rec
+   (lambda (ter acc)
+     (let ((k (string-length ter))
+           )
+       (if (= k 0)
+           acc
+           (let ((q (substring ter 1))
+                 (t (string-ref ter 0))
+                 )
+             (ter-val-rec q (+ (* 3 acc) (ted-val t)))
+ )))
+ ))
+
+
+(define ted-val
+ (lambda (t)
+   (cond ((char=? t #\0) 0)
+         ((char=? t #\1) 1)
+         ((char=? t #\2) 2)
+   ) ))
+
+
+
+;ES4A dim. per induzione dell'esercizio 1
+
+;Dimostrare che per ogni coppia di interi n e k : (f 1 n 0 k) --> k
+
+;VALORE SU CUI IMPOSTARE LA DIMOSTRAZIONE
+;n
+
+
+;CASO BASE  
+
+;n=0 quindi k=0 perchè compreso tra 0 e n
+;(f 1 0 0 0) --> 0 OK
+
+
+;IPOTESI INDUTTIVA
+
+;considero n>=0  (f 1 n 0 k) --> k
+
+
 
 
 ;ES4B dim. per induzione sull'esercizio 1
