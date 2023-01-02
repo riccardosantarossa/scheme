@@ -3,7 +3,6 @@
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname |esercitazioni 06-12|) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks") (lib "hanoi.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "drawings.ss" "installed-teachpacks") (lib "hanoi.ss" "installed-teachpacks")) #f)))
 
 ;ES 3 LCS
-
 (define lcs ; valore: lista di terne
   (lambda (u v) ; u, v: stringhe
     (lcs-rec 1 u 1 v)
@@ -53,6 +52,9 @@
 
 ;ES 4 STRINGHE CICLICHE
 
+
+
+
 ;ES 7 NUMERI COMUNI A DUE LISTE
 
 (define shared  ;val: lista 
@@ -66,6 +68,45 @@
           (else
            (shared u (cdr v)))
 )))
+
+
+;ES8 PARITY CHECK FAILS
+
+(define parity-check-fails
+  (lambda (lst)
+    ""
+  )
+)
+
+(define parity-sum
+  (lambda (lst)
+    (if (null? (cdr lst))
+        '()
+        (let ((v (sum (car lst) 0))) 
+          (if (= (remainder v 2) 0)
+              ((cons true (parity-sum (cdr lst))))
+              ((cons false (parity-sum (cdr lst))))
+         )
+    ))
+))
+
+;Fa la somma delle singole parole dentro la lista
+(define sum
+  (lambda (s acc)
+    (if (string=? s "")
+        acc
+        (if (char=? (string-ref s 0) #\1)
+            (sum (substring s 1) (+ acc 1))
+            (sum (substring s 1) acc)
+        ))
+  )
+)
+
+
+
+
+
+
 
 
 
