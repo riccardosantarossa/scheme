@@ -76,7 +76,7 @@
   (lambda (lst)
     (let ((v (sum-loop lst)))
       (if (null? v)
-          
+          null
           (if (= (remainder (car v) 2) 0)
               (parity-check-fails (cdr lst))
               (cons (index (car v) v 0) (parity-check-fails (cdr lst)))
@@ -113,7 +113,7 @@
 (define index
   (lambda (e l c)
     (if (or (= e (car l)) (null? l))
-      c
+       c
       (index e (cdr l) (+ c 1))
     )
 ))
