@@ -74,21 +74,18 @@
 
 (define parity-check-fails
   (lambda (lst)
-    ""
+    (let ((v (sum-loop lst)))
+      (if (null? v)
+          
+          (if (= (remainder (car v) 2) 0)
+              (parity-check-fails (cdr lst))
+              (cons (index (car v) v 0) (parity-check-fails (cdr lst)))
+          )
+       )
+    )
   )
 )
 
-(define parity-sum
-  (lambda (lst)
-    (if (null? (cdr lst))
-        '()
-        (let ((v (sum (car lst) 0))) 
-          (if (= (remainder v 2) 0)
-              ((cons true (parity-sum (cdr lst))))
-              ((cons false (parity-sum (cdr lst))))
-         )
-    ))
-))
 
 ;Fa la somma delle singole parole dentro la lista
 (define sum
@@ -102,7 +99,24 @@
   )
 )
 
+;Usa sum su tutti gli elementi della lista
+(define sum-loop
+  (lambda (l)
+    (if (null? l)
+        l
+        (cons (sum (car l) 0) (sum-loop (cdr l)))
+    )
+  )
+)
 
+
+(define index
+  (lambda (e l c)
+    (if (or (= e (car l)) (null? l))
+      c
+      (index e (cdr l) (+ c 1))
+    )
+))
 
 
 
