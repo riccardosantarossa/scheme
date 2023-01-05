@@ -72,24 +72,30 @@
 
 ;ES8 PARITY CHECK FAILS
 
-(define parity-check-fails
-  (lambda (lst)
-    (let ((v (sum-loop lst)))
-      (if (null? v)
-          null
-          (if (= (remainder (car v) 2) 0)
-              (parity-check-fails (cdr lst))
-              (cons (index (car v) v 0) (parity-check-fails (cdr lst)))
-          )
-       )
-    )
+(define parity-check-failures ;val: lista di interi
+  (lambda (lst)               ;lst: lista di stringhe binarie
+    (parity-check lst 0)
   )
 )
 
+;Controlla se ogni elemento di lst rispetta o meno la parità 
+(define parity-check   ;val: lista di interi
+  (lambda (lst cont)   ;lst: lista di stringhe binarie, cont: intero non negativo
+    (if (null? lst)
+        null       
+        (let ((v (sum (car lst) 0)))
+          (if (null? v)
+              null
+              (if (= (remainder v 2) 0)
+                  (parity-check (cdr lst) (+ cont 1))
+                  (cons cont (parity-check (cdr lst) (+ cont 1)))
+              )
+          )
+))))
 
 ;Fa la somma delle singole parole dentro la lista
 (define sum
-  (lambda (s acc)
+  (lambda (s acc)   ;s: stringa binaria, acc: intero non negativo
     (if (string=? s "")
         acc
         (if (char=? (string-ref s 0) #\1)
@@ -99,24 +105,9 @@
   )
 )
 
-;Usa sum su tutti gli elementi della lista
-(define sum-loop
-  (lambda (l)
-    (if (null? l)
-        l
-        (cons (sum (car l) 0) (sum-loop (cdr l)))
-    )
-  )
-)
 
 
-(define index
-  (lambda (e l c)
-    (if (or (= e (car l)) (null? l))
-       c
-      (index e (cdr l) (+ c 1))
-    )
-))
+
 
 
 
