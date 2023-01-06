@@ -164,8 +164,8 @@
           )
 ))))
 
-;Fa la somma delle singole parole dentro la lista
-(define sum
+;Fa la somma delle singole parole binarie dentro la lista
+(define sum         ;val: intero non negativo
   (lambda (s acc)   ;s: stringa binaria, acc: intero non negativo
     (if (string=? s "")
         acc
@@ -179,27 +179,20 @@
 
 ;ES9 CLOSEST PAIR
 (define closest-pair
-  (lambda (lst)
-    (if (null? lst)
-        null
-       (let ((d (sub (car lst) (car (cdr lst)))))
-         (if (< d (closest-pair ))
+   (lambda (lst)
+     (let  ((a (car lst)) (b (car (cdr lst)))
+            (s  (sub a b)))
 
-
-         )
-       )
-    )
-  )
+         
+         
+     )
+   )
 )
+
 
 (define sub
- (lambda (x y)
-    (- y x) 
- )
+  (lambda (x y)
+    (- y x)
+  )
 )
-
-
-
-
-
 
