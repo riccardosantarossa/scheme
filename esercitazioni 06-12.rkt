@@ -178,21 +178,33 @@
 
 
 ;ES9 CLOSEST PAIR
-(define closest-pair
-   (lambda (lst)
-     (let  ((a (car lst)) (b (car (cdr lst)))
-            (s  (sub a b)))
-
-         
-         
+(define closest-pair ;val: lista formata da una coppia di numeri
+   (lambda (lst)     ;lst: lista di numeri
+     (if (null? (cdr lst))
+         null
+         (let ((v (first-data lst)))
+           (if (< (sub (car lst) (car (cdr lst))) (car v))
+               (cdr v)
+               (closest-pair (cdr lst))
+               )
+           )
      )
    )
 )
 
-
-(define sub
-  (lambda (x y)
-    (- y x)
+(define first-data ;val: lista formata da somma algebrica e due addendi
+  (lambda (lst)    ;lst: lista di numeri
+    (if (null? (cdr lst))
+        null
+        (let u ((sub (car lst) (car (cdr lst))))
+          (cons u (list (car lst) (car (cdr lst))))
+        )
+    )
   )
 )
 
+(define sub     ;val: numero reale 
+  (lambda (x y) ;x,y: numeri reali
+    (- y x)
+  )
+)
